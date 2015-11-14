@@ -19,6 +19,9 @@ public class GameView extends View {
 
     private final Game game;
     private Bitmap backgroundGrid;
+    private Bitmap rock;
+    private Bitmap paper;
+    private Bitmap scissors;
     private int aiWins;
     private int userWins;
     private int draws;
@@ -37,8 +40,10 @@ public class GameView extends View {
         youLabel = "You";
         aiLabel = "AI";
 
-        backgroundGrid = BitmapFactory.decodeResource(game.getResources(),
-                R.drawable.grid);
+        backgroundGrid = BitmapFactory.decodeResource(game.getResources(), R.drawable.grid);
+        rock = BitmapFactory.decodeResource(game.getResources(), R.drawable.rock);
+        paper = BitmapFactory.decodeResource(game.getResources(), R.drawable.paper);
+        scissors = BitmapFactory.decodeResource(game.getResources(), R.drawable.scissors);
 
         setEnabled(true);
         setClickable(true);
@@ -50,7 +55,17 @@ public class GameView extends View {
         background.setColor(Color.WHITE);
         canvas.drawRect(0, 0, getWidth(), getHeight(), background);
 
-        canvas.drawBitmap(backgroundGrid, 10, 0, null);
+        int move = game.getPlayer();
+
+        switch (move) {
+            case 0: canvas.drawBitmap(rock, 10, 0, null);
+                break;
+            case 1: canvas.drawBitmap(paper, 10, 0, null);
+                break;
+            case 2: canvas.drawBitmap(scissors, 10, 0, null);
+                break;
+            default: canvas.drawBitmap(backgroundGrid, 10, 0, null);
+        }
 
         float l_x = backgroundGrid.getWidth() / game.SIZE_OF_BOARD_W;
         float l_y = backgroundGrid.getHeight() / game.SIZE_OF_BOARD_H;
@@ -96,7 +111,7 @@ public class GameView extends View {
 
             x = (x - shiftBorder) / bgWidth;
             y = y / bgHeight;
-//            Log.v("test x:y", String.valueOf(x) + " : " + String.valueOf(y));
+            Log.v("test x:y", String.valueOf(x) + " : " + String.valueOf(y));
 
             game.addChoice(x);
 

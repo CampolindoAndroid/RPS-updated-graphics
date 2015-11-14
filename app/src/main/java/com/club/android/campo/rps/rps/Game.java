@@ -15,7 +15,7 @@ public class Game extends Activity {
     public final int SIZE_OF_BOARD_W = 3;
     public final int SIZE_OF_BOARD_H = 1;
 //player number
-    private int player = 1;
+    private int player = -1;
     private int[] board = new int[SIZE_OF_BOARD_W];
     private GameView gameView;
 
@@ -75,6 +75,7 @@ public class Game extends Activity {
     public void cleanGrid() {
         for (int i = 0; i < SIZE_OF_BOARD_W; i++)
            board[i] = 0;
+        player = -1;
     }
 
     public void computerMove() {
@@ -82,5 +83,6 @@ public class Game extends Activity {
     }
 
     public void addChoice(int x) {
+        this.player = x;
     }
 }
